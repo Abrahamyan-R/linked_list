@@ -74,3 +74,24 @@ class List:
         self.__head = self.__head.next
         self.__head.prev.next = None
         self.__head.prev = None
+
+    def __get_node_by_index(self, index):
+        if (index < 0 or index >= self.__size):
+            # Throw custom exception
+            pass
+
+        curr_node = self.__head
+        while index > 0:
+            curr_node = curr_node.next
+            index -= 1
+
+        return curr_node
+
+    def __getitem__(self, index):
+        return self.__get_node_by_index(index).data
+
+    def __setitem__(self, index, value):
+        node = self.__get_node_by_index(index)
+
+        node.data = value
+        return value
