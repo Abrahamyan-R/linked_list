@@ -15,7 +15,7 @@ class List:
             yield curr_node.data
             curr_node = curr_node.next
 
-    def size(self):
+    def __len__(self):
         return self.__size
 
     def is_empty(self):
