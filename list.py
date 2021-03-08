@@ -88,6 +88,9 @@ class List:
         return curr_node
 
     def __getitem__(self, index):
+        if isinstance(index, slice):
+            indices = range(*index.indices(self.__size))
+            return [self[i] for i in indices]
         return self.__get_node_by_index(index).data
 
     def __setitem__(self, index, value):
