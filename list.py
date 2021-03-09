@@ -98,3 +98,18 @@ class List:
 
         node.data = value
         return value
+
+    def remove(self, value):
+        curr_node = self.__head
+        while curr_node:
+            next_node = curr_node.next
+            if curr_node.data == value:
+                if curr_node == self.__head:
+                    self.pop_front()
+                elif curr_node == self.__tail:
+                    self.pop_back()
+                else:
+                    curr_node.prev.next = curr_node.next
+                    curr_node.next.prev = curr_node.prev
+                    curr_node.prev = curr_node.next = None
+            curr_node = next_node
