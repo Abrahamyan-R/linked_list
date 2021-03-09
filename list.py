@@ -9,6 +9,12 @@ class List:
         self.__head = self.__tail = None
         self.__size = 0
 
+    def front(self):
+        return self.__head.data if self.__head else None
+
+    def back(self):
+        return self.__tail.data if self.__tail else None
+
     def __iter__(self):
         curr_node = self.__head
         while curr_node is not None:
@@ -21,19 +27,49 @@ class List:
     def is_empty(self):
         return self.__head is None
 
+    def size(self):
+        return self.__size
+
+    def clear(self):
+        while (not self.is_empty()):
+            self.pop_back()
+
+    def insert(self, pos, value):
+        if pos < 0 or pos >= self.__size:
+            # Throw custom exception
+            pass
+
+        if pos == 0:
+            return self.push_front(value)
+
+        curr_node = self.__head
+        while pos > 0:
+            curr_node = curr_node.next
+            pos -= 1
+
+        new_node = self.__Node(value)
+
+        new_node.next = curr_node
+        new_node.prev = curr_node.prev
+        curr_node.prev.next = new_node
+        curr_node.prev = new_node
+
+        return value
+
     def push_back(self, value):
         new_node = self.__Node(value)
 
         if self.is_empty():
             self.__head = self.__tail = new_node
             self.__size += 1
-            return
+            return value
 
         self.__tail.next = new_node
         new_node.prev = self.__tail
         self.__tail = new_node
 
         self.__size += 1
+        return value
 
     def push_front(self, value):
         new_node = self.__Node(value)
@@ -41,13 +77,14 @@ class List:
         if self.is_empty():
             self.__head = self.__tail = new_node
             self.__size += 1
-            return
+            return value
 
         self.__head.prev = new_node
         new_node.next = self.__head
         self.__head = new_node
 
         self.__size += 1
+        return value
 
     def pop_back(self):
         if self.is_empty():
