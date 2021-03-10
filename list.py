@@ -164,3 +164,29 @@ class List:
             curr_node = curr_node.prev
 
         self.__head, self.__tail = self.__tail, self.__head
+
+    def make_unique(self):
+        if self.is_empty() or self.__size == 1:
+            return
+
+        curr_node = self.__head
+
+        while curr_node:
+            next_node = curr_node.next
+            while next_node:
+                tmp = next_node.next
+                if curr_node.data == next_node.data:
+                    if next_node is self.__tail:
+                        self.__tail = next_node.prev
+
+                    next_node.prev.next = next_node.next
+
+                    if next_node.next:
+                        next_node.next.prev = next_node.prev
+
+                    next_node.prev = None
+                    next_node.next = None
+                    
+                    self.__size -= 1
+                next_node = tmp
+            curr_node = curr_node.next
