@@ -150,3 +150,17 @@ class List:
                     curr_node.next.prev = curr_node.prev
                     curr_node.prev = curr_node.next = None
             curr_node = next_node
+
+    def reverse(self):
+        if self.is_empty() or self.__size == 1:
+            return
+
+        curr_node = self.__head
+
+        while curr_node is not None:
+            tmp = curr_node.prev
+            curr_node.prev = curr_node.next
+            curr_node.next = tmp
+            curr_node = curr_node.prev
+
+        self.__head, self.__tail = self.__tail, self.__head
