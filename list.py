@@ -5,6 +5,11 @@ class List:
             self.next = None
             self.prev = None
 
+        def __eq__(self, other):
+            if type(other) == type(self):
+                return self.data == other.data
+            return self.data == other
+
     def __init__(self):
         self.__head = self.__tail = None
         self.__size = 0
@@ -91,7 +96,7 @@ class List:
             # Throw custom exception
             pass
 
-        if self.__head == self.__tail:
+        if self.__head is self.__tail:
             self.__head = self.__tail = None
             return
 
@@ -104,7 +109,7 @@ class List:
             # Throw custom exception
             pass
 
-        if self.__head == self.__tail:
+        if self.__head is self.__tail:
             self.__head = self.__tail = None
             return
 
@@ -140,10 +145,10 @@ class List:
         curr_node = self.__head
         while curr_node:
             next_node = curr_node.next
-            if curr_node.data == value:
-                if curr_node == self.__head:
+            if curr_node == value:
+                if curr_node is self.__head:
                     self.pop_front()
-                elif curr_node == self.__tail:
+                elif curr_node is self.__tail:
                     self.pop_back()
                 else:
                     curr_node.prev.next = curr_node.next
@@ -175,7 +180,7 @@ class List:
             next_node = curr_node.next
             while next_node:
                 tmp = next_node.next
-                if curr_node.data == next_node.data:
+                if curr_node == next_node:
                     if next_node is self.__tail:
                         self.__tail = next_node.prev
 
